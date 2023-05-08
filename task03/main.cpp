@@ -3,6 +3,7 @@
  * Collision between particle and ball, simulating Brownian motion
  */
 
+#include <cassert>
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
