@@ -30,6 +30,12 @@ void wdw_spring_3d(
 
   // write a few lines of code below to compute the gradient of elastic energy of this spring
   // with respect to the positions of the two end points.
+  const Eigen::Vector3f diff = node2xyz[0] - node2xyz[1];
+  const float norm_diff = diff.norm();
+  const Eigen::Vector3f grad = stiffness * C / norm_diff * diff;
+
+  dw[0] = grad;
+  dw[1] = -grad;
 }
 
 float gradient_descent_energy_minimization(
