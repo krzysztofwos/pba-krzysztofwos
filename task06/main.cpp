@@ -37,7 +37,7 @@ void WdWddW_Spring3(
   constexpr int num_node = 2; // number of two end points
   const double length = (node2xyz[0] - node2xyz[1]).norm(); // distance between p0 and p1
   const double C = length - length_ini; // the length differences.
-  w = 0.5f * stiffness * C * C; // Hooke's law. energy is square of length difference W=1/2*k*C*C
+  w = 0.5 * stiffness * C * C; // Hooke's law. energy is square of length difference W=1/2*k*C*C
   //
   const Eigen::Vector3d u01 = (node2xyz[1] - node2xyz[0]).normalized();
   const Eigen::Vector3d dC[num_node] = {-u01, u01};
