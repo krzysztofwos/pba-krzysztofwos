@@ -26,6 +26,11 @@ void solve_laplace_gauss_sidel_on_grid(
       if (vtx2isfix[idx_center]) { continue; }
       // write some code below to implement Gauss-Sidel method
       // Do not write more than 5 lines of code
+      auto sum = vtx2val[(iy - 1) * grid_size + ix]; // up
+      sum += vtx2val[(iy + 1) * grid_size + ix];     // down
+      sum += vtx2val[iy * grid_size + (ix - 1)];     // left
+      sum += vtx2val[iy * grid_size + (ix + 1)];     // right
+      vtx2val[idx_center] = sum / 4.0f;
     }
   }
 }
