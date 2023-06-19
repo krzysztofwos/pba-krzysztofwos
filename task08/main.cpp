@@ -88,6 +88,9 @@ void wdw_volume_tri_origin(
   // dw[0] =
   // dw[1] =
   // dw[2] =
+  dw[0] = -node2xyz[1].cross(node2xyz[2]) / 6.0;
+  dw[1] = -node2xyz[2].cross(node2xyz[0]) / 6.0;
+  dw[2] = -node2xyz[0].cross(node2xyz[1]) / 6.0;
 }
 
 void inflate(
@@ -153,11 +156,15 @@ void inflate(
     for (unsigned int inode = 0; inode < 3; ++inode) {
       for (unsigned int idim = 0; idim < 3; ++idim) {
         // write some code including `dw` and `lambda`
+        dW(node2vtx[inode] * 3 + idim) -= lambda * dw[inode](idim);
+        ddW(node2vtx[inode] * 3 + idim, num_vtx * 3) -= dw[inode](idim);
+        ddW(num_vtx * 3, node2vtx[inode] * 3 + idim) -= dw[inode](idim);
       }
     }
   }
   // Do not forget to write one line of code here
   // -------------------------------------------------
+  dW(num_vtx * 3) = volume - volume_trg;
   // Do not change below
   // damping for stable convergence
   for (unsigned int i = 0; i < ddW.rows(); ++i) {
