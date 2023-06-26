@@ -78,6 +78,9 @@ void step(
     // dEdt +=
     // dEdo +=
     // do not change anything else except for the lines above.
+    Eigen::Vector3f grad_gravity = -gravity;
+    dEdt += grad_gravity;
+    dEdo += vtx2xyz_ini.row(i_vtx).cross(grad_gravity.transpose() * rotation);
   }
   translation -= learning_rate * dEdt;
   rotation = rotation * Eigen::AngleAxisf(-dEdo.norm()*learning_rate, dEdo.stableNormalized());
