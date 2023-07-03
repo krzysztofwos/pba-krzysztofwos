@@ -110,6 +110,12 @@ int main() {
         // rotation =
         // Omega =
         // Do not change anything else except for the two lines above.
+        Eigen::Matrix3f skew;
+        skew << 0, -Omega.z(), Omega.y(),
+            Omega.z(), 0, -Omega.x(),
+            -Omega.y(), Omega.x(), 0;
+        rotation += dt * rotation * skew;
+        Omega += dt * inertia.inverse() * (-Omega.cross(inertia * Omega));
       }
       std::cout << "time: " << time << std::endl;
       // Since we use the forward Euler method for the time integration, the energy will increase slightly over the time.
